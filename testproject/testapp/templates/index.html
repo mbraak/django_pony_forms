@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Simple form</title>
+    <link href="{{ STATIC_URL }}bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form method="post" class="form-horizontal">
+            <legend>Edit document</legend>
+            {% csrf_token %}
+            {{ form }}
+            <div class="form-actions">
+                <input class="btn btn-primary" type="submit" value="Save" />
+                <a class="btn" href="#">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
