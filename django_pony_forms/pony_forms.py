@@ -116,6 +116,7 @@ class RowContext(object):
     def __init__(self, bound_field, form):
         super(RowContext, self).__init__()
 
+        self.name = bound_field.name
         self._bound_field = bound_field
         self._form = form
 
@@ -169,7 +170,7 @@ class FieldsetsContext(object):
             ]
 
             return RenderableDict(
-                (row._bound_field.name, row) for row in rows
+                (row.name, row) for row in rows
             )
 
     def get_fieldset(self, key):
