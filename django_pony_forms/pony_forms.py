@@ -8,7 +8,7 @@ from django.forms.forms import BoundField, NON_FIELD_ERRORS
 
 class PonyFormMixin(object):
     form_template = 'django_pony_forms/base_form.html'
-    row_template = 'django_pony_forms/row_field.html'
+    row_template = 'django_pony_forms/row.html'
     errorlist_template = 'django_pony_forms/errorlist.html'
 
     def __unicode__(self):
