@@ -6,7 +6,7 @@ from django.template.context import Context
 from django.forms.forms import BoundField, NON_FIELD_ERRORS
 
 
-class SimpleFormMixin(object):
+class PonyFormMixin(object):
     form_template = 'simple_forms/base_form.html'
     row_template = 'simple_forms/row_field.html'
     errorlist_template = 'simple_forms/errorlist.html'
@@ -45,7 +45,7 @@ class SimpleFormMixin(object):
         return self._get_form_context().fieldsets
 
 
-class BootstrapFormMixin(SimpleFormMixin):
+class BootstrapFormMixin(PonyFormMixin):
     form_template = 'simple_forms/bootstrap_form.html'
     row_template = 'simple_forms/bootstrap_row.html'
 
