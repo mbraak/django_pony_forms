@@ -54,7 +54,7 @@ class FormContext(Context):
     def __init__(self, form, *args, **kwargs):
         super(FormContext, self).__init__(*args, **kwargs)
 
-        self.form = form
+        self._form = form
 
         bound_fields = form._create_bound_field_dict()
 
@@ -80,15 +80,15 @@ class FormContext(Context):
         return RenderableDict(
             (
                 field_name,
-                RowContext(bound_field, self.form)
+                RowContext(bound_field, self._form)
             )
             for (field_name, bound_field) in visible_fields.iteritems()
         )
 
     def get_top_errors(self, hidden_fields):
         top_errors = ErrorList(
-            self.form.errors.get(NON_FIELD_ERRORS, []),
-            self.form.errorlist_template
+            self._form.errors.get(NON_FIELD_ERRORS, []),
+            self._form.errorlist_template
         )
 
         for bound_field in hidden_fields.itervalues():
@@ -116,27 +116,27 @@ class RowContext(object):
     def __init__(self, bound_field, form):
         super(RowContext, self).__init__()
 
-        self.bound_field = bound_field
-        self.form = form
+        self._bound_field = bound_field
+        self._form = form
 
     def __unicode__(self):
-        if not self.bound_field.label:
+        if not self._bound_field.label:
             label_tag = ''
         else:
-            label = force_unicode(self.bound_field.label)
-            label_tag = self.bound_field.label_tag(label) or ''
+            label = force_unicode(self._bound_field.label)
+            label_tag = self._bound_field.label_tag(label) or ''
 
         context = dict(
             label=label_tag,
-            field=unicode(self.bound_field),
-            name=self.bound_field.name,
-            css_classes=self.bound_field.css_classes(),
-            help_text=force_unicode(self.bound_field.field.help_text or u''),
-            errors=ErrorList(self.bound_field.errors, self.form.errorlist_template),
+            field=unicode(self._bound_field),
+            name=self._bound_field.name,
+            css_classes=self._bound_field.css_classes(),
+            help_text=force_unicode(self._bound_field.field.help_text or u''),
+            errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
         )
 
         return mark_safe(
-            render_to_string(self.form.row_template, context)
+            render_to_string(self._form.row_template, context)
         )
 
 
@@ -155,8 +155,8 @@ class ErrorList(list):
 
 class FieldsetsContext(object):
     def __init__(self, form, rows):
-        self.form = form
-        self.rows = rows
+        self._form = form
+        self._rows = rows
 
     def __getitem__(self, key):
         field_names = self.get_fieldset(key)
@@ -164,16 +164,16 @@ class FieldsetsContext(object):
             return None
         else:
             rows = [
-                self.rows[field_name]
-                for field_name in field_names if field_name in self.rows
+                self._rows[field_name]
+                for field_name in field_names if field_name in self._rows
             ]
 
             return RenderableDict(
-                (row.bound_field.name, row) for row in rows
+                (row._bound_field.name, row) for row in rows
             )
 
     def get_fieldset(self, key):
-        if hasattr(self.form, 'fieldset_definitions'):
-            return self.form.fieldset_definitions.get(key)
+        if hasattr(self._form, 'fieldset_definitions'):
+            return self._form.fieldset_definitions.get(key)
         else:
             return None
