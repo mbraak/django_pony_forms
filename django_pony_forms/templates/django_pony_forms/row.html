@@ -1,5 +1,5 @@
 {{ errors }}
-<div class="form-row row-{{ name }}{% if css_classes %} {{ css_classes }}{% endif %}">
+<div class="form-row{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
     {{ label }}
     {{ field }}
     {% if help_text %}

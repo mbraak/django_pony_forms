@@ -30,14 +30,14 @@ class PonyFormTest(unittest.TestCase):
         rows = d('div.form-row')
         self.assertEqual(
             format_list(
-                [pq(row).attr('class') for row in rows],
-                separator=';', sort=False
+                [pq(row).attr('id') for row in rows],
+                sort=False
             ),
-            'form-row row-name required;form-row row-description;form-row row-type required'
+            'row-name row-description row-type'
         )
 
         # Name row
-        name_row = d('div.row-name')
+        name_row = d('div#row-name')
         label = name_row.find('label')
         self.assertEqual(label.attr('for'), 'id_name')
         self.assertEqual(label.text(), 'Name')
@@ -93,11 +93,11 @@ class PonyFormTest(unittest.TestCase):
         self.assertEqual(
             format_list(
                 [
-                    pq(unicode(row)).attr('class') for row in form.rows
+                    pq(unicode(row)).attr('id') for row in form.rows
                 ],
-                separator=';', sort=False
+                sort=False
             ),
-            'form-row row-name required;form-row row-description;form-row row-type required'
+            'row-name row-description row-type'
         )
 
         # 6. Post form and get top errors
