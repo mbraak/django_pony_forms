@@ -116,18 +116,27 @@ class RowContext(object):
     def __init__(self, bound_field, form):
         super(RowContext, self).__init__()
 
-        self.name = bound_field.name
         self._bound_field = bound_field
         self._form = form
 
     def __unicode__(self):
+        return mark_safe(
+            render_to_string(self._form.row_template, self._get_context())
+        )
+
+    def _get_context(self):
+        if not hasattr(self, '_context'):
+            self._context = self._create_context()
+        return self._context
+
+    def _create_context(self):
         if not self._bound_field.label:
             label_tag = ''
         else:
             label = force_unicode(self._bound_field.label)
             label_tag = self._bound_field.label_tag(label) or ''
 
-        context = dict(
+        return dict(
             label=label_tag,
             field=unicode(self._bound_field),
             name=self._bound_field.name,
@@ -136,9 +145,29 @@ class RowContext(object):
             errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
         )
 
-        return mark_safe(
-            render_to_string(self._form.row_template, context)
-        )
+    @property
+    def name(self):
+        return self._bound_field.name
+
+    @property
+    def label(self):
+        return self._get_context()['label']
+
+    @property
+    def field(self):
+        return self._get_context()['field']
+
+    @property
+    def css_classes(self):
+        return self._get_context()['css_classes']
+
+    @property
+    def help_text(self):
+        return self._get_context()['help_text']
+
+    @property
+    def errors(self):
+        return self._get_context()['errors']
 
 
 class ErrorList(list):
