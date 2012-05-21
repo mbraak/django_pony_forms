@@ -1,3 +1,5 @@
+https://secure.travis-ci.org/mbraak/django_pony_forms.png
+
 =================
 Django pony forms
 =================
