@@ -1,0 +1,8 @@
+language: python
+python:
+  - 2.6
+install:
+  - pip install -r testproject/requirements_jenkins.txt
+script:
+  - cd testproject
+  - python manage.py jenkins
