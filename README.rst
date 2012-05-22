@@ -1,4 +1,5 @@
 .. image:: https://secure.travis-ci.org/mbraak/django_pony_forms.png
+  :target: http://travis-ci.org/#!/mbraak/django_pony_forms
 
 =================
 Django pony forms
