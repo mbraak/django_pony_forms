@@ -8,7 +8,7 @@ class ExampleForm(PonyFormMixin, forms.Form):
     name = forms.CharField(max_length=50, required=True, help_text='help text')
     description = forms.CharField(max_length=255, help_text='please fill in a description', widget=forms.Textarea, required=False)
     code = forms.CharField(max_length=15, required=True, widget=forms.HiddenInput)
-    type = forms.ChoiceField(choices=[(1, 'abc'), (2, 'def')])
+    example_type = forms.ChoiceField(choices=[(1, 'abc'), (2, 'def')])
 
     fieldset_definitions = dict(
         f1=['name'],

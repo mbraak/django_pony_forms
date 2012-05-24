@@ -33,7 +33,7 @@ class PonyFormTest(unittest.TestCase):
                 [pq(row).attr('id') for row in rows],
                 sort=False
             ),
-            'row-name row-description row-type'
+            'row-name row-description row-example_type'
         )
 
         # Name row
@@ -72,7 +72,7 @@ class PonyFormTest(unittest.TestCase):
         # 1. Rows
         self.assertEqual(
             format_list(form.rows.keys(), sort=False),
-            'name description type'
+            'name description example_type'
         )
 
         # 2. Hidden fields
@@ -98,7 +98,7 @@ class PonyFormTest(unittest.TestCase):
                 ],
                 sort=False
             ),
-            'row-name row-description row-type'
+            'row-name row-description row-example_type'
         )
 
         # 6. Post form and get top errors
