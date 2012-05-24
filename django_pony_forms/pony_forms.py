@@ -11,6 +11,8 @@ class PonyFormMixin(object):
     row_template = 'django_pony_forms/row.html'
     errorlist_template = 'django_pony_forms/errorlist.html'
 
+    required_css_class = 'required'
+
     def __unicode__(self):
         return render_to_string(
             self.form_template,

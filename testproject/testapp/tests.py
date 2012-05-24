@@ -41,6 +41,7 @@ class PonyFormTest(unittest.TestCase):
         label = name_row.find('label')
         self.assertEqual(label.attr('for'), 'id_name')
         self.assertEqual(label.text(), 'Name')
+        self.assertTrue(name_row.hasClass('required'))
 
         name_field = d('#id_name')
         self.assertEqual(name_field.attr('type'), 'text')

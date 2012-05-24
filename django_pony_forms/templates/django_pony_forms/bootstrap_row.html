@@ -1,4 +1,4 @@
-<div class="control-group{% if errors %} error{% endif %}">
+<div class="control-group{% if errors %} error{% endif %}{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
     <div class="control-label">{{label }}</div>
 
     <div class="controls">

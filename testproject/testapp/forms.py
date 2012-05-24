@@ -15,7 +15,5 @@ class ExampleForm(PonyFormMixin, forms.Form):
         f2=['type', 'description']
     )
 
-    required_css_class = 'required'
-
     def clean(self):
         raise ValidationError('Top message')
