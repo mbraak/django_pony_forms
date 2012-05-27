@@ -18,9 +18,9 @@ Let's create our first Django pony form. Just mix in the *PonyFormMixin*.
 
 Let's render the form in a template:
 
-**index.html**
+**index.html:**
 
-::
+.. code-block:: html+django
 
     <form method="post">
         {% csrf_token %}
@@ -30,7 +30,7 @@ Let's render the form in a template:
 
 The html for the ``{{ form }}`` looks like this:
 
-::
+.. code-block:: html
 
     <div class="form-row required" id="row-name">
         <label for="id_name">Name</label>
@@ -40,9 +40,7 @@ The html for the ``{{ form }}`` looks like this:
 Use the Bootstrap mixin
 -------------------------
 
-You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap.
-
-::
+You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap.::
 
     from django import forms
     from django_pony_forms.pony_forms import BootstrapFormMixin
@@ -52,7 +50,7 @@ You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap.
 
 The produced html looks like this:
 
-::
+.. code-block:: html
 
     <div class="control-group">
         <div class="control-label">
@@ -72,9 +70,7 @@ You can define the following form templates:
 * Errorlist template; variabe *errorlist_template*
 
 
-Let's change the errorlist template:
-
-::
+Let's change the errorlist template: ::
 
     class ExampleForm(PonyFormMixin, forms.Form):
         errorlist_template = 'my_errorlist.html'
@@ -83,7 +79,7 @@ Let's change the errorlist template:
 
 **my_errorlist.html:**
 
-::
+.. code-block:: html+django
 
     {% for error in errors %}
         <span class="help-inline">{{ error }}</span>
@@ -94,15 +90,13 @@ Use pony forms in a view template
 
 You can also ignore the form template and define the form in your view template.
 
-This example uses the **rows** property of the pony form.
-
-::
+This example uses the **rows** property of the pony form.::
 
     class ExampleForm(PonyFormMixin, forms.Form):
         name = forms.CharField()
         start_date = forms.DateField()
 
-::
+.. code-block:: html+django
     
     <form method="post">
         {% csrf_token %}
@@ -119,7 +113,7 @@ Use fieldsets
 
 This example defines the fieldsets *first* and *second*:
 
-::
+.. code-block:: python
 
     class ExampleForm(PonyFormMixin, forms.Form):
         fieldset_definitions = dict(
@@ -134,7 +128,7 @@ This example defines the fieldsets *first* and *second*:
 
 Let's use the fieldsets in the view template:
 
-::
+.. code-block:: html+django
 
     <form method="post">
         {% csrf_token %}

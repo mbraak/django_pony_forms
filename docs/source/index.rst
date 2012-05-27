@@ -10,6 +10,8 @@ Django pony forms
 *Django pony forms* is an extension to the Django form. It helps you to produce better html for your forms,
 and to configure the html output.
 
+The source is on github: https://github.com/mbraak/django_pony_forms
+
 What can *Django pony forms* do for you?
 ========================================
 
@@ -27,6 +29,7 @@ Contents:
 
    installation
    tutorial
+   api
 
 
 Indices and tables

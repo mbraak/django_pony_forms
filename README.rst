@@ -29,7 +29,7 @@ This produces the following html:
         <input type="text" id="id_name" name="name" />
     </div>
 
-**2. Write your own form templates**
+**2: Write your own form templates**
 
 You can also write your own form templates:
 
