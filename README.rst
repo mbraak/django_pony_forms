@@ -7,6 +7,8 @@ Django pony forms
 
 *Django-pony-forms* helps you to write better html for your Django forms.
 
+Read the documentation on http://django_pony_forms.readthedocs.org/en/latest/index.html
+
 **1: Better form html by default**
 
 The form html that Django produces is not very nice or useful. For example, the default output of a Django form is a table.
