@@ -1,14 +1,13 @@
 from setuptools import setup, find_packages
 
 
-version = '0.3'
+version = '0.3.0.2'
 
 setup(
     name='django_pony_forms',
     version=version,
     license='Apache License, Version 2.0',
     description='Django pony forms',
-    long_description=open('README.rst').read(),
     packages=find_packages(exclude=['testproject', 'testproject.*']),
     include_package_data=True,
     zip_safe=False,

@@ -1,1 +1,3 @@
+include LICENSE.rst
+include README.rst
 recursive-include django_pony_forms/templates *
