@@ -11,6 +11,7 @@ class PonyFormMixin(object):
     row_template = 'django_pony_forms/row.html'
     errorlist_template = 'django_pony_forms/errorlist.html'
 
+    fieldset_definitions = dict()
     required_css_class = 'required'
 
     def __unicode__(self):
@@ -191,7 +192,7 @@ class FieldsetsContext(object):
         self._rows = rows
 
     def __getitem__(self, key):
-        field_names = self.get_fieldset(key)
+        field_names = self._form.fieldset_definitions.get(key)
         if not field_names:
             return None
         else:
@@ -203,9 +204,3 @@ class FieldsetsContext(object):
             return RenderableDict(
                 (row.name, row) for row in rows
             )
-
-    def get_fieldset(self, key):
-        if hasattr(self._form, 'fieldset_definitions'):
-            return self._form.fieldset_definitions.get(key)
-        else:
-            return None
