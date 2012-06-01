@@ -12,6 +12,7 @@ class PonyFormMixin(object):
     errorlist_template = 'django_pony_forms/errorlist.html'
 
     fieldset_definitions = dict()
+    custom_row_templates = dict()
     required_css_class = 'required'
 
     def __unicode__(self):
@@ -31,6 +32,9 @@ class PonyFormMixin(object):
             self._form_context = FormContext(self)
         return self._form_context
 
+    def _get_row_template_name(self, field_name):
+        return self.custom_row_templates.get(field_name, self.row_template)
+    
     @property
     def rows(self):
         return self._get_form_context().rows
@@ -123,8 +127,10 @@ class RowContext(object):
         self._form = form
 
     def __unicode__(self):
+        template_name = self._form._get_row_template_name(self._bound_field.name)
+
         return mark_safe(
-            render_to_string(self._form.row_template, self._get_context())
+            render_to_string(template_name, self._get_context())
         )
 
     def _get_context(self):

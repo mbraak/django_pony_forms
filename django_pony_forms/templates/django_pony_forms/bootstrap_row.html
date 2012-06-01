@@ -1,8 +1,8 @@
 <div class="control-group{% if errors %} error{% endif %}{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
-    <div class="control-label">{{label }}</div>
+    <div class="control-label">{{ label }}</div>
 
     <div class="controls">
-        {{ field }}
+        {% block field %}{{ field }}{% endblock %}
 
         {% for error in errors %}
             <span class="help-inline">{{ error }}</span>
