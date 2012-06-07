@@ -7,7 +7,7 @@ setup(
     name='django_pony_forms',
     version=version,
     license='Apache License, Version 2.0',
-    description='Django pony forms',
+    description='Django-pony-forms helps you to write better html for your Django forms',
     packages=find_packages(exclude=['testproject', 'testproject.*']),
     include_package_data=True,
     zip_safe=False,
