@@ -152,6 +152,7 @@ class RowContext(object):
             css_classes=self._bound_field.css_classes(),
             help_text=force_unicode(self._bound_field.field.help_text or u''),
             errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
+            form=self._form
         )
 
     @property
