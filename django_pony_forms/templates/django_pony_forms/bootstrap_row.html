@@ -1,5 +1,7 @@
 <div class="control-group{% if errors %} error{% endif %}{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
-    <div class="control-label">{{ label }}</div>
+    {% block label %}
+        <div class="control-label">{{ label }}</div>
+    {% endblock %}
 
     <div class="controls">
         {% block field %}{{ field }}{% endblock %}

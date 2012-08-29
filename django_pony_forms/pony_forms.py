@@ -140,6 +140,7 @@ class RowContext(object):
 
     def _create_context(self):
         if not self._bound_field.label:
+            label = ''
             label_tag = ''
         else:
             label = force_unicode(self._bound_field.label)
@@ -147,6 +148,7 @@ class RowContext(object):
 
         return dict(
             label=label_tag,
+            label_title=label,
             field=unicode(self._bound_field),
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
