@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = '0.3.3'
+version = '0.3.3.1'
 
 setup(
     name='django_pony_forms',
