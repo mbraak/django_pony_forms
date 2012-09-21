@@ -4,6 +4,7 @@ from django.utils.datastructures import SortedDict
 from django.template.loader import render_to_string
 from django.template.context import Context
 from django.forms.forms import BoundField, NON_FIELD_ERRORS
+from django.utils.translation import ugettext_lazy
 
 
 class PonyFormMixin(object):
@@ -143,7 +144,7 @@ class RowContext(object):
             label = ''
             label_tag = ''
         else:
-            label = force_unicode(self._bound_field.label)
+            label = ugettext_lazy(force_unicode(self._bound_field.label))
             label_tag = self._bound_field.label_tag(label) or ''
 
         return dict(
