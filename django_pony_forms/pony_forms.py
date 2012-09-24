@@ -11,6 +11,7 @@ class PonyFormMixin(object):
     form_template = 'django_pony_forms/base_form.html'
     row_template = 'django_pony_forms/row.html'
     errorlist_template = 'django_pony_forms/errorlist.html'
+    label_template = 'django_pony_forms/label.html'
 
     fieldset_definitions = dict()
     custom_row_templates = dict()
@@ -140,12 +141,8 @@ class RowContext(object):
         return self._context
 
     def _create_context(self):
-        if not self._bound_field.label:
-            label = ''
-            label_tag = ''
-        else:
-            label = ugettext_lazy(force_unicode(self._bound_field.label))
-            label_tag = self._bound_field.label_tag(label) or ''
+        label = self._get_label()
+        label_tag = self._get_label_tag(label)
 
         return dict(
             label=label_tag,
@@ -157,6 +154,25 @@ class RowContext(object):
             errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
             form=self._form
         )
+
+    def _get_label(self):
+        if self._bound_field.label:
+            return ugettext_lazy(force_unicode(self._bound_field.label))
+        else:
+            return ''
+
+    def _get_label_tag(self, contents):
+        bound_field = self._bound_field
+        widget = bound_field.field.widget
+        id_ = widget.attrs.get('id') or bound_field._auto_id
+
+        if not id_:
+            return ''
+        else:
+            return render_to_string(
+                self._form.label_template,
+                dict(id=id_, label=contents, field=bound_field.field)
+            )
 
     @property
     def name(self):
