@@ -40,7 +40,7 @@ The html for the ``{{ form }}`` looks like this:
 Use the Bootstrap mixin
 -------------------------
 
-You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap.::
+You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap::
 
     from django import forms
     from django_pony_forms.pony_forms import BootstrapFormMixin
@@ -90,7 +90,7 @@ Use pony forms in a view template
 
 You can also ignore the form template and define the form in your view template.
 
-This example uses the **rows** property of the pony form.::
+This example uses the **rows** property of the pony form::
 
     class ExampleForm(PonyFormMixin, forms.Form):
         name = forms.CharField()
