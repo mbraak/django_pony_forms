@@ -147,7 +147,7 @@ class RowContext(object):
         return dict(
             label=label_tag,
             label_title=label,
-            field=unicode(self._bound_field),
+            field=mark_safe(unicode(self._bound_field)),
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
             help_text=force_unicode(self._bound_field.field.help_text or u''),
