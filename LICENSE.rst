@@ -2,7 +2,7 @@
 LICENSE
 =======
 
-Copyright © 2012, Marco Braak
+Copyright © 2013, Marco Braak
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this software except in compliance with the License.
