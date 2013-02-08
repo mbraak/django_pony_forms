@@ -7,3 +7,4 @@ logilab-common==0.59.0  # needed by django-jenkins
 lxml==3.1beta1  # needed by pyquery
 pylint==0.26.0  # needed by django-jenkins
 pyquery==1.2.4
+six==1.2.0
