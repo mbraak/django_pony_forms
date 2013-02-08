@@ -1,6 +1,6 @@
 coverage==3.6
 cssselect==0.7.1  # needed by pyquery
-django==1.4.3
+https://www.djangoproject.com/download/1.5c1/tarball/
 django-jenkins==0.14.0
 logilab-astng==0.24.1  # needed by django-jenkins
 logilab-common==0.59.0  # needed by django-jenkins

@@ -1,10 +1,12 @@
 from pyquery import PyQuery as pq
 
+import six
+
 from django.utils import unittest
 from django import forms
 
-from forms import ExampleForm
-from test_utils import format_list
+from .forms import ExampleForm
+from .test_utils import format_list
 
 
 class PonyFormTest(unittest.TestCase):
@@ -13,7 +15,7 @@ class PonyFormTest(unittest.TestCase):
         form = ExampleForm()
 
         # Wrap html in 'div' so pyquery can parse it
-        html = u"<div>%s</div>" % unicode(form)
+        html = u"<div>%s</div>" % six.text_type(form)
         d = pq(html)
 
         # Check hidden field
@@ -54,7 +56,7 @@ class PonyFormTest(unittest.TestCase):
         # 2. Post form
         form = ExampleForm(dict())
 
-        html = u"<div>%s</div>" % unicode(form)
+        html = u"<div>%s</div>" % six.text_type(form)
         d = pq(html)
 
         errorlist = d('ul.errorlist')
@@ -94,7 +96,7 @@ class PonyFormTest(unittest.TestCase):
         self.assertEqual(
             format_list(
                 [
-                    pq(unicode(row)).attr('id') for row in form.rows
+                    pq(six.text_type(row)).attr('id') for row in form.rows
                 ],
                 sort=False
             ),
@@ -114,7 +116,7 @@ class PonyFormTest(unittest.TestCase):
         form.fields['name'].label = ''
 
         # 1. Get html
-        html = u"<div>%s</div>" % unicode(form)
+        html = u"<div>%s</div>" % six.text_type(form)
         d = pq(html)
 
         self.assertEqual(len(d('.row-name label')), 0)

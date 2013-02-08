@@ -1,4 +1,6 @@
-from django.utils.encoding import force_unicode
+import six
+
+from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.datastructures import SortedDict
 from django.template.loader import render_to_string
@@ -22,6 +24,9 @@ class PonyFormMixin(object):
             self.form_template,
             context_instance=self._get_form_context()
         )
+
+    def __str__(self):
+        return self.__unicode__()
 
     def _create_bound_field_dict(self):
         return SortedDict(
@@ -76,13 +81,13 @@ class FormContext(Context):
     def get_hidden_field_dict(self, bound_fields):
         return RenderableDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in bound_fields.iteritems() if bound_field.is_hidden
+            for (field_name, bound_field) in six.iteritems(bound_fields) if bound_field.is_hidden
         )
 
     def get_visible_fields_dict(self, bound_fields):
         return SortedDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in bound_fields.iteritems() if not bound_field.is_hidden
+            for (field_name, bound_field) in six.iteritems(bound_fields) if not bound_field.is_hidden
         )
 
     def get_rows(self, visible_fields):
@@ -91,7 +96,7 @@ class FormContext(Context):
                 field_name,
                 RowContext(bound_field, self._form)
             )
-            for (field_name, bound_field) in visible_fields.iteritems()
+            for (field_name, bound_field) in six.iteritems(visible_fields)
         )
 
     def get_top_errors(self, hidden_fields):
@@ -100,10 +105,10 @@ class FormContext(Context):
             self._form.errorlist_template
         )
 
-        for bound_field in hidden_fields.itervalues():
+        for bound_field in six.itervalues(hidden_fields):
             if bound_field.errors:
                 top_errors.extend([
-                    u'(Hidden field %s) %s' % (bound_field.name, force_unicode(e)) for e in bound_field.errors
+                    u'(Hidden field %s) %s' % (bound_field.name, force_text(e)) for e in bound_field.errors
                 ])
 
         return top_errors
@@ -113,12 +118,12 @@ class RenderableDict(SortedDict):
     def __unicode__(self):
         return mark_safe(
             u''.join(
-                unicode(item) for item in self.itervalues()
+                six.text_type(item) for item in six.itervalues(self)
             )
         )
 
     def __iter__(self):
-        return self.itervalues()
+        return six.itervalues(self)
 
 
 class RowContext(object):
@@ -135,6 +140,9 @@ class RowContext(object):
             render_to_string(template_name, self._get_context())
         )
 
+    def __str__(self):
+        return self.__unicode__()
+
     def _get_context(self):
         if not hasattr(self, '_context'):
             self._context = self._create_context()
@@ -147,17 +155,17 @@ class RowContext(object):
         return dict(
             label=label_tag,
             label_title=label,
-            field=mark_safe(unicode(self._bound_field)),
+            field=mark_safe(six.text_type(self._bound_field)),
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
-            help_text=force_unicode(self._bound_field.field.help_text or u''),
+            help_text=force_text(self._bound_field.field.help_text or u''),
             errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
             form=self._form
         )
 
     def _get_label(self):
         if self._bound_field.label:
-            return ugettext_lazy(force_unicode(self._bound_field.label))
+            return ugettext_lazy(force_text(self._bound_field.label))
         else:
             return ''
 

@@ -11,7 +11,10 @@ setup(
     packages=find_packages(exclude=['testproject', 'testproject.*']),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['django'],
+    install_requires=[
+        'django',
+        'six==1.2.0'
+    ],
     author='Marco Braak',
     author_email='mbraak@ridethepony.nl',
     url='https://github.com/mbraak/django_pony_forms',
