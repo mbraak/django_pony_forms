@@ -26,7 +26,7 @@ class PonyFormTest(unittest.TestCase):
 
         # There is no errorlist
         errorlist = d('ul.errorlist')
-        self.assertEquals(len(errorlist), 0)
+        self.assertEqual(len(errorlist), 0)
 
         # Form rows
         rows = d('div.form-row')
