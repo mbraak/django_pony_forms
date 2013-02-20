@@ -1,7 +1,7 @@
 {{ errors }}
 <div class="form-row{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
     {{ label }}
-    {{ field }}
+    {% block field %}{{ field }}{% endblock %}
     {% if help_text %}
         <span class="helptext">{{ help_text }}</span>
     {% endif %}
