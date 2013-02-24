@@ -178,7 +178,7 @@ class RowContext(object):
     def _get_label_tag(self, contents):
         bound_field = self._bound_field
         widget = bound_field.field.widget
-        id_ = widget.attrs.get('id') or bound_field._auto_id
+        id_ = widget.attrs.get('id') or bound_field.auto_id
 
         if not id_:
             return ''
