@@ -8,7 +8,7 @@ env:
   - DJANGO_VERSION=1.4.5
   - DJANGO_VERSION=1.5
 install:
-  - "if [[ $DJANGO_VERSION == '1.5' ]]; then pip install https://www.djangoproject.com/download/1.5c2/tarball/; else pip install Django==$DJANGO_VERSION; fi"
+  - pip install Django==$DJANGO_VERSION
   - pip install -r testproject/requirements_jenkins.txt
   - python setup.py install
 script:
