@@ -1,4 +1,4 @@
-coverage==3.6
+coverage==3.6  # needed by django-jenkins
 cssselect==0.8  # needed by pyquery
 django-jenkins==0.14.0
 logilab-astng==0.24.2  # needed by pylint
