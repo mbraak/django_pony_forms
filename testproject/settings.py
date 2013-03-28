@@ -114,16 +114,3 @@ INSTALLED_APPS = [
     'django_pony_forms',
     'testapp',
 ]
-
-try:
-    import django_jenkins
-    INSTALLED_APPS.append('django_jenkins')
-except ImportError:
-    pass
-
-JENKINS_TASKS = (
-    'django_jenkins.tasks.with_coverage',
-    'django_jenkins.tasks.django_tests',
-)
-
-PROJECT_APPS = ['django_pony_forms', 'testapp']

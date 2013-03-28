@@ -1,1 +1,0 @@
-python manage.py jenkins --coverage-html-report=coverage
