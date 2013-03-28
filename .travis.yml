@@ -16,6 +16,8 @@ script:
   - python manage.py test testapp
   - coverage run --source=django_pony_forms,testapp manage.py test testapp
   - coverage report -m
+after_success:
+  - pip install -r testproject/requirements_coveralls.txt
   - coveralls
 matrix:
   exclude:
