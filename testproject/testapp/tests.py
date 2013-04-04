@@ -110,6 +110,15 @@ class PonyFormTest(unittest.TestCase):
             'Top message;(Hidden field code) This field is required.'
         )
 
+        # 7. Get row properties
+        name_row = form.rows['name']
+        self.assertEqual(name_row.name, 'name')
+        self.assertEqual(name_row.label, '<label for="id_name">Name</label>')
+        self.assertEqual(name_row.field, '<input id="id_name" maxlength="50" name="name" type="text" />')
+        self.assertEqual(name_row.css_classes, 'required')
+        self.assertEqual(name_row.help_text, 'help text')
+        self.assertEqual(name_row.errors, ['This field is required.'])
+
     def test_empty_label(self):
         # setup
         form = ExampleForm()
