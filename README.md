@@ -2,6 +2,10 @@
 
 [![Coverage Status](https://coveralls.io/repos/mbraak/django_pony_forms/badge.png?branch=master)](https://coveralls.io/r/mbraak/django_pony_forms)
 
+[![Downloads](https://pypip.in/d/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
+
+[![Downloads](https://pypip.in/v/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
+
 Django pony forms
 =================
 
