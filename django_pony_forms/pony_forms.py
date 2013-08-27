@@ -50,19 +50,19 @@ class PonyFormMixin(object):
     
     @property
     def rows(self):
-        return self._get_form_context().rows
+        return self._get_form_context()['rows']
 
     @property
     def hidden_fields(self):
-        return self._get_form_context().hidden_fields
+        return self._get_form_context()['hidden_fields']
 
     @property
     def top_errors(self):
-        return self._get_form_context().top_errors
+        return self._get_form_context()['top_errors']
 
     @property
     def fieldsets(self):
-        return self._get_form_context().fieldsets
+        return self._get_form_context()['fieldsets']
 
 
 class BootstrapFormMixin(PonyFormMixin):
@@ -78,11 +78,11 @@ class FormContext(Context):
 
         bound_fields = form._create_bound_field_dict()
 
-        self.hidden_fields = self.get_hidden_field_dict(bound_fields)
-        self.fields = self.get_visible_fields_dict(bound_fields)
-        self.rows = self.get_rows(self.fields)
-        self.top_errors = self.get_top_errors(self.hidden_fields)
-        self.fieldsets = FieldsetsContext(form, self.rows)
+        self['hidden_fields'] = self.get_hidden_field_dict(bound_fields)
+        self['fields'] = self.get_visible_fields_dict(bound_fields)
+        self['rows'] = self.get_rows(self['fields'])
+        self['top_errors'] = self.get_top_errors(self['hidden_fields'])
+        self['fieldsets'] = FieldsetsContext(form, self['rows'])
 
     def get_hidden_field_dict(self, bound_fields):
         return RenderableDict(
