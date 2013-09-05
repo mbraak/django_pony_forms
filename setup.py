@@ -13,7 +13,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'django',
-        'six==1.3.0'
+        'six==1.4.1'
     ],
     author='Marco Braak',
     author_email='mbraak@ridethepony.nl',
