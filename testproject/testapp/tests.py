@@ -2,8 +2,8 @@ from pyquery import PyQuery as pq
 
 import six
 
-from django.utils import unittest
 from django import forms
+from django.utils import unittest
 
 from .forms import ExampleForm
 from .test_utils import format_list
@@ -69,6 +69,12 @@ class PonyFormTest(unittest.TestCase):
         )
 
     def test_get_form_properties(self):
+        def get_text(v):
+            if callable(v):
+                return v()
+            else:
+                return v
+
         form = ExampleForm()
 
         # 1. Rows
@@ -114,10 +120,10 @@ class PonyFormTest(unittest.TestCase):
         name_row = form.rows['name']
         self.assertEqual(name_row.name, 'name')
         self.assertEqual(name_row.label, '<label for="id_name">Name</label>')
-        self.assertTrue(name_row.field.startswith('<input id="id_name"'))
+        self.assertTrue(get_text(name_row.field).startswith('<input id="id_name"'))
         self.assertEqual(name_row.css_classes, 'required')
         self.assertEqual(name_row.help_text, 'help text')
-        self.assertEqual(name_row.errors, ['This field is required.'])
+        self.assertEqual(get_text(name_row.errors), ['This field is required.'])
 
     def test_empty_label(self):
         # setup

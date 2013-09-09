@@ -161,12 +161,14 @@ class RowContext(object):
         return dict(
             label=label_tag,
             label_title=label,
-            field=mark_safe(six.text_type(self._bound_field)),
+            field=self._get_field_string,
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
             help_text=force_text(self._bound_field.field.help_text or u''),
-            errors=ErrorList(self._bound_field.errors, self._form.errorlist_template),
-            form=self._form
+            errors=self._get_errorlist,
+            form=self._form,
+            bound_field=self._bound_field,
+            must_render_label=self._must_render_label,
         )
 
     def _get_label(self):
@@ -187,6 +189,36 @@ class RowContext(object):
                 self._form.label_template,
                 dict(id=id_, label=contents, field=bound_field.field)
             )
+
+    def _get_field_string(self):
+        if self._must_render_label():
+            result = six.text_type(self._bound_field)
+        else:
+            result = self._render_label_and_field()
+
+        return mark_safe(result)
+
+    def _render_label_and_field(self):
+        bound_field = self._bound_field
+        widget = bound_field.field.widget
+
+        attrs = bound_field.field.widget_attrs(widget)
+        auto_id = bound_field.auto_id
+
+        if auto_id and 'id' not in widget.attrs:
+            attrs['id'] = auto_id
+
+        name = bound_field.html_name
+
+        return widget.render(name, bound_field.value(), attrs=attrs, label=self._get_label())
+
+    def _must_render_label(self):
+        widget = self._bound_field.field.widget
+
+        return not getattr(widget, 'renders_label', False)
+
+    def _get_errorlist(self):
+        return ErrorList(self._bound_field.errors, self._form.errorlist_template)
 
     @property
     def name(self):
