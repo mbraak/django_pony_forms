@@ -6,6 +6,8 @@
 
 [![Downloads](https://pypip.in/v/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
 
+[![Violations](https://goo.gl/M5MZ82)](http://coviolations.io/projects/mbraak/django_pony_forms/)
+
 Django pony forms
 =================
 
