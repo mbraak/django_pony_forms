@@ -47,7 +47,7 @@ class PonyFormMixin(object):
 
     def _get_row_template_name(self, field_name):
         return self.custom_row_templates.get(field_name, self.row_template)
-    
+
     @property
     def rows(self):
         return self._get_form_context()['rows']
