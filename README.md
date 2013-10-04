@@ -53,7 +53,7 @@ my_form.html:
 Requirements
 ------------
 
-The package is tested with Django 1.3.7, 1.4.5 and 1.5.2.
+The package is tested with Django 1.3 - 1.6beta and Python 2.6, 2.7 and 3.3.
 
 Installation
 ------------
