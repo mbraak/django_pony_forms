@@ -37,30 +37,6 @@ The html for the ``{{ form }}`` looks like this:
         <input id="id_name" type="text" name="name" />
     </div>
 
-Use the Bootstrap mixin
--------------------------
-
-You can also mix in *BootstrapFormMixin* to produce html for Twitter Bootstrap::
-
-    from django import forms
-    from django_pony_forms.pony_forms import BootstrapFormMixin
-
-    class ExampleForm(BootstrapFormMixin, forms.Form):
-        name = forms.CharField()
-
-The produced html looks like this:
-
-.. code-block:: html
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="id_name">Name</label>
-        </div>
-        <div class="controls">
-            <input id="id_name" type="text" name="name" />
-        </div>
-    </div>
-
 Write a form template
 ---------------------
 You can define the following form templates:

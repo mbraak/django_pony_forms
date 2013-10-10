@@ -1,7 +1,5 @@
 .. Django pony forms documentation master file, created by
    sphinx-quickstart on Mon May 14 07:53:21 2012.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 =================
 Django pony forms
@@ -16,7 +14,7 @@ What can *Django pony forms* do for you?
 ========================================
 
 **Better form html by default**
-  Just add *PonyFormMixin* to your form class. You can also mixin *BootstrapFormMixin* to produce html for Twitter Bootstrap.
+  Just add *PonyFormMixin* to your form class.
 
 **Form templates**
   *Django pony forms* allows you to write form templates. You can write a template for all your forms, or a specific template for one particular form.

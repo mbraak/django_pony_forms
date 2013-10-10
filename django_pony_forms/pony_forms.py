@@ -65,11 +65,6 @@ class PonyFormMixin(object):
         return self._get_form_context()['fieldsets']
 
 
-class BootstrapFormMixin(PonyFormMixin):
-    form_template = 'django_pony_forms/bootstrap_form.html'
-    row_template = 'django_pony_forms/bootstrap_row.html'
-
-
 class FormContext(Context):
     def __init__(self, form, *args, **kwargs):
         super(FormContext, self).__init__(*args, **kwargs)
