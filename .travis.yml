@@ -23,7 +23,7 @@ before_install:
 after_success:
   - pip install -r requirements_coveralls.txt
   - coveralls
-  - pip install coviolations_app==0.17
+  - pip install coviolations_app==0.18
   - cd ..
   - covio
 matrix:
