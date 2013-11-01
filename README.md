@@ -68,3 +68,7 @@ Add **django_pony_forms** to your installed apps in **settings.py**.
         ..
         'django_pony_forms',
     )
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mbraak/django_pony_forms/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
