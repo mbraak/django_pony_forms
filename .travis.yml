@@ -10,6 +10,7 @@ env:
 install:
   - pip install $DJANGO
   - pip install -r testproject/requirements_test.txt
+  - pip install -r testproject/requirements_travis.txt
   - python setup.py install
 script:
   - cd testproject
