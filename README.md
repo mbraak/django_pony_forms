@@ -8,6 +8,8 @@
 
 [![Violations](https://coviolations.io/projects/mbraak/django_pony_forms/badge/?)](http://coviolations.io/projects/mbraak/django_pony_forms/)
 
+[![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
+
 Django pony forms
 =================
 
