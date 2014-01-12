@@ -20,12 +20,12 @@ setup(
     url='https://github.com/mbraak/django_pony_forms',
     download_url='https://github.com/mbraak/django_pony_forms/zipball/master',
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Framework :: Django',
+        "Development Status :: 5 - Production/Stable",
+        "Framework :: Django",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.3",
     ]
 )
