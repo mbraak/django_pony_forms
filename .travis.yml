@@ -6,7 +6,8 @@ python:
 env:
   - DJANGO=Django==1.4.10
   - DJANGO=Django==1.5.5
-  - DJANGO=Django==1.6.1
+  - DJANGO=Django==1.6.2
+  - DJANGO=https://www.djangoproject.com/download/1.7a2/tarball/
 install:
   - pip install $DJANGO
   - pip install -r testproject/requirements_test.txt
@@ -15,8 +16,6 @@ install:
 script:
   - cd testproject
   - python manage.py test testapp
-  - coverage run --source=django_pony_forms,testapp manage.py test testapp
-  - coverage report -m
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq sloccount
@@ -26,5 +25,7 @@ after_success:
   - covio
 matrix:
   exclude:
+    - python: 2.6
+      env: DJANGO=https://www.djangoproject.com/download/1.7a2/tarball/
     - python: 3.3
       env: DJANGO=Django==1.4.10
