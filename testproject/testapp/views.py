@@ -1,6 +1,6 @@
 from django.views import generic
 
-import forms
+from . import forms
 
 
 class Index(generic.FormView):

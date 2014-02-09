@@ -123,6 +123,9 @@ class RenderableDict(SortedDict):
             )
         )
 
+    def __str__(self):
+        return self.__unicode__()
+
     def __iter__(self):
         return six.itervalues(self)
 
@@ -251,6 +254,9 @@ class ErrorList(list):
             self.errorlist_template,
             dict(errors=self)
         )
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class FieldsetsContext(object):
