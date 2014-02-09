@@ -1,14 +1,8 @@
-[![Travis Status](https://secure.travis-ci.org/mbraak/django_pony_forms.png)](http://travis-ci.org/mbraak/django_pony_forms)
+[![Travis Status](https://secure.travis-ci.org/mbraak/django_pony_forms.png)](http://travis-ci.org/mbraak/django_pony_forms) [![Coverage Status](https://coveralls.io/repos/mbraak/django_pony_forms/badge.png?branch=master)](https://coveralls.io/r/mbraak/django_pony_forms) [![Downloads](https://pypip.in/d/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/) [![Downloads](https://pypip.in/v/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/) [![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master) [![License](https://pypip.in/license/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
 
-[![Coverage Status](https://coveralls.io/repos/mbraak/django_pony_forms/badge.png?branch=master)](https://coveralls.io/r/mbraak/django_pony_forms)
-
-[![Downloads](https://pypip.in/d/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
-
-[![Downloads](https://pypip.in/v/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
 
 [![Violations](https://coviolations.io/projects/mbraak/django_pony_forms/badge/?)](http://coviolations.io/projects/mbraak/django_pony_forms/)
 
-[![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
 
 Django pony forms
 =================
