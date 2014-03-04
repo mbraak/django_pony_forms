@@ -156,7 +156,7 @@ class RowContext(object):
         label = self._get_label()
         label_tag = self._get_label_tag(label)
 
-        return dict(
+        context = dict(
             label=label_tag,
             label_title=label,
             field=self._get_field_string,
@@ -168,6 +168,13 @@ class RowContext(object):
             bound_field=self._bound_field,
             must_render_label=self._must_render_label,
         )
+
+        if hasattr(self._form, 'update_row_context'):
+            context.update(
+                self._form.update_row_context(self._bound_field)
+            )
+
+        return context
 
     def _get_label(self):
         if self._bound_field.label:
