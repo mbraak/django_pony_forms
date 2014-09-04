@@ -1,8 +1,8 @@
-[![Travis Status](https://secure.travis-ci.org/mbraak/django_pony_forms.png)](http://travis-ci.org/mbraak/django_pony_forms) [![Coverage Status](https://coveralls.io/repos/mbraak/django_pony_forms/badge.png?branch=master)](https://coveralls.io/r/mbraak/django_pony_forms) [![Downloads](https://pypip.in/d/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/) [![Downloads](https://pypip.in/v/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/) [![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master) [![License](https://pypip.in/license/django_pony_forms/badge.png)](https://pypi.python.org/pypi/django_pony_forms/)
+[![Travis Status](https://secure.travis-ci.org/mbraak/django_pony_forms.svg)](http://travis-ci.org/mbraak/django_pony_forms) [![Version](https://pypip.in/version/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Development Status](https://pypip.in/status/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)
 
+[![Coverage Status](https://img.shields.io/coveralls/mbraak/django_pony_forms.svg)](https://coveralls.io/r/leukeleu/django_pony_forms) [![Downloads](https://pypip.in/download/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Format](https://pypip.in/format/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
 
-[![Violations](https://coviolations.io/projects/mbraak/django_pony_forms/badge/?)](http://coviolations.io/projects/mbraak/django_pony_forms/)
-
+[![License](https://pypip.in/license/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)  [![Supported Python versions](https://pypip.in/py_versions/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Supported Python implementations](https://pypip.in/implementation/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)
 
 Django pony forms
 =================
