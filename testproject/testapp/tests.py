@@ -1,9 +1,10 @@
+import unittest
+
 from pyquery import PyQuery as pq
 
 import six
 
 from django import forms
-from django.utils import unittest
 
 from .forms import ExampleForm
 from .test_utils import format_list
