@@ -120,7 +120,11 @@ class PonyFormTest(unittest.TestCase):
         name_row = form.rows['name']
         self.assertEqual(name_row.name, 'name')
         self.assertEqual(name_row.label, '<label for="id_name">Name</label>')
-        self.assertTrue(get_text(name_row.field).startswith('<input id="id_name"'))
+
+        rendered_name_input = get_text(name_row.field)
+        self.assertTrue(rendered_name_input.startswith('<input '))
+        self.assertTrue('name="name"' in rendered_name_input)
+
         self.assertEqual(name_row.css_classes, 'required')
         self.assertEqual(name_row.help_text, 'help text')
         self.assertEqual(get_text(name_row.errors), ['This field is required.'])
