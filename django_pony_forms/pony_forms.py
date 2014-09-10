@@ -8,11 +8,17 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 from django.utils.safestring import mark_safe
-from django.utils.datastructures import SortedDict
+
 from django.template.loader import render_to_string
 from django.template.context import Context
 from django.forms.forms import BoundField, NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
+
+try:
+    # Python >= 2.7
+    from collections import OrderedDict
+except ImportError:
+    from django.utils.datastructures import SortedDict as OrderedDict
 
 
 class PonyFormMixin(object):
@@ -35,7 +41,7 @@ class PonyFormMixin(object):
         return self.__unicode__()
 
     def _create_bound_field_dict(self):
-        return SortedDict(
+        return OrderedDict(
             (field_name, BoundField(self, field, field_name))
             for (field_name, field) in self.fields.items()
         )
@@ -86,7 +92,7 @@ class FormContext(Context):
         )
 
     def get_visible_fields_dict(self, bound_fields):
-        return SortedDict(
+        return OrderedDict(
             (field_name, bound_field)
             for (field_name, bound_field) in six.iteritems(bound_fields) if not bound_field.is_hidden
         )
@@ -115,7 +121,7 @@ class FormContext(Context):
         return top_errors
 
 
-class RenderableDict(SortedDict):
+class RenderableDict(OrderedDict):
     def __unicode__(self):
         return mark_safe(
             u''.join(
@@ -125,9 +131,6 @@ class RenderableDict(SortedDict):
 
     def __str__(self):
         return self.__unicode__()
-
-    def __iter__(self):
-        return six.itervalues(self)
 
 
 class RowContext(object):
@@ -197,13 +200,18 @@ class RowContext(object):
 
     def _get_field_string(self):
         if self._must_render_label():
+            # Default: render boundfield which renders the label and the widget
             result = six.text_type(self._bound_field)
         else:
-            result = self._render_label_and_field()
+            # The widget renders its own label
+            result = self._render_widget_with_own_label()
 
         return mark_safe(result)
 
-    def _render_label_and_field(self):
+    def _render_widget_with_own_label(self):
+        """
+        Render widget. The widget renders its own label
+        """
         bound_field = self._bound_field
         widget = bound_field.field.widget
 
@@ -215,9 +223,15 @@ class RowContext(object):
 
         name = bound_field.html_name
 
+        # Render widget widh 'label' attribute
         return widget.render(name, bound_field.value(), attrs=attrs, label=self._get_label())
 
     def _must_render_label(self):
+        """
+        Must we render the label?
+
+        Not if the widget has the renders_label property. This means that the widget renders its own label.
+        """
         widget = self._bound_field.field.widget
 
         return not getattr(widget, 'renders_label', False)

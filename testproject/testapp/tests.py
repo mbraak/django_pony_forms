@@ -102,7 +102,7 @@ class PonyFormTest(unittest.TestCase):
         self.assertEqual(
             format_list(
                 [
-                    pq(six.text_type(row)).attr('id') for row in form.rows
+                    pq(six.text_type(row)).attr('id') for row in form.rows.values()
                 ],
                 sort=False
             ),
