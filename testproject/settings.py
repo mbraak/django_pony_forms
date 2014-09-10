@@ -2,22 +2,16 @@ import os
 import sys
 
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.abspath(os.path.dirname(__file__))
 
 sys.path.append(
     os.path.abspath(
-        os.path.join(BASE_DIR, '..')
+        os.path.join(base_dir, '..')
     )
 )
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
-
-MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
@@ -42,8 +36,6 @@ TIME_ZONE = 'America/Chicago'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -83,13 +75,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '@s30r*e809lu8+2_x0(zn8*+#gpba0p6y+$3v*-u(p!&u8@7@3'
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+SECRET_KEY = 'secret'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
