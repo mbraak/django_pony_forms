@@ -1,0 +1,12 @@
+<div class="row form-row{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
+    <div class="columns">
+        <label for="{{ id }}" {% if errors %} class="error"{% endif %}>
+            {{ label_title }}{{ field }}
+        </label>{{ errors }}
+
+        {% if help_text %}
+            <p>{{ help_text }}</p>
+        {% endif %}
+    </div>
+
+</div>

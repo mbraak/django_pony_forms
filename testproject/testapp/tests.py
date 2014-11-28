@@ -42,7 +42,6 @@ class PonyFormTest(unittest.TestCase):
         # Name row
         name_row = d('div#row-name')
         label = name_row.find('label')
-        self.assertEqual(label.attr('for'), 'id_name')
         self.assertEqual(label.text(), 'Name')
         self.assertTrue(name_row.hasClass('required'))
 
@@ -51,7 +50,7 @@ class PonyFormTest(unittest.TestCase):
         self.assertEqual(name_field.attr('name'), 'name')
         self.assertEqual(name_field.attr('maxlength'), '50')
 
-        help_text = name_row.find('span.helptext')
+        help_text = name_row.find('p')
         self.assertEqual(help_text.text(), 'help text')
 
         # 2. Post form
@@ -60,13 +59,13 @@ class PonyFormTest(unittest.TestCase):
         html = u"<div>%s</div>" % six.text_type(form)
         d = pq(html)
 
-        errorlist = d('ul.errorlist')
+        errorlist = d('small.error')
         self.assertEqual(
             format_list(
                 [pq(error).text() for error in errorlist],
                 separator=';', sort=False
             ),
-            'Top message (Hidden field code) This field is required.;This field is required.;This field is required.'
+            'Top message;(Hidden field code) This field is required.;This field is required.;This field is required.'
         )
 
     def test_get_form_properties(self):

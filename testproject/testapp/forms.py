@@ -15,5 +15,8 @@ class ExampleForm(PonyFormMixin, forms.Form):
         f2=['type', 'description']
     )
 
+    row_template = 'foundation_row.html'
+    errorlist_template = 'foundation_errorlist.html'
+
     def clean(self):
         raise ValidationError('Top message')

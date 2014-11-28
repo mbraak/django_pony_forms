@@ -1,21 +1,28 @@
-<!doctype html>
+{% load static %}<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Simple form</title>
-    <link href="{{ STATIC_URL }}bootstrap.css" rel="stylesheet">
+    <link href="{% static "foundation/css/foundation.css" %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <form method="post" class="form-horizontal">
-            <legend>Edit document</legend>
-            {% csrf_token %}
-            {{ form }}
-            <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="Save" />
-                <a class="btn" href="#">Cancel</a>
-            </div>
-        </form>
+    <div class="row">
+        <div class="columns">
+            <h2>Edit document</h2>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="columns">
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+
+                <input class="button" type="submit" value="Save" />
+                <a class="button secondary" href="#">Cancel</a>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
