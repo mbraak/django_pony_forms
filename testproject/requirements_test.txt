@@ -1,4 +1,6 @@
-cssselect==0.9.1  # required by pyquery
-lxml==3.4.1  # required by pyquery
-pyquery==1.2.9
 six==1.8.0
+
+# pyquery
+pyquery==1.2.9
+cssselect==0.9.1
+lxml==3.4.1
