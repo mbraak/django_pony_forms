@@ -15,11 +15,10 @@ install:
   - pip install $DJANGO
   - pip install -r testproject/requirements_test.txt
   - pip install -r testproject/requirements_travis.txt
-  - python setup.py install
+  - pip install -e .
 script:
-  - cd testproject
-  - python manage.py test testapp
-  - coverage run --source=django_pony_forms,testapp manage.py test testapp
+  - python testproject/manage.py test testapp
+  - coverage run --source=django_pony_forms,testapp testproject/manage.py test testapp
   - coverage report
 before_install:
   - sudo apt-get update -qq
