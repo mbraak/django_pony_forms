@@ -2,7 +2,7 @@ import six
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from django_pony_forms.pony_forms import PonyFormMixin
 
@@ -12,7 +12,7 @@ class ExampleTextarea(forms.Textarea):
 
     def render(self, name, value, attrs, label):
         return (
-            format_html('<label>%s</label>' % six.text_type(label)) +
+            mark_safe('<label>%s</label>' % six.text_type(label)) +
             super(ExampleTextarea, self).render(name, value, attrs)
         )
 
