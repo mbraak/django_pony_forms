@@ -5,6 +5,7 @@ from pyquery import PyQuery as pq
 import six
 
 from django import forms
+from django.test import Client
 
 from .forms import ExampleForm
 from .test_utils import format_list
@@ -149,3 +150,12 @@ class PonyFormTest(unittest.TestCase):
 
         # 1. Get fieldsets
         self.assertEqual(form.fieldsets['aa'], None)
+
+    def test_frontpage(self):
+        client = Client()
+
+        response = client.get('/')
+        d = pq(response.content)
+
+        name_field = d('#id_name')
+        self.assertEqual(name_field.attr('name'), 'name')
