@@ -20,3 +20,8 @@ class ExampleForm(PonyFormMixin, forms.Form):
 
     def clean(self):
         raise ValidationError('Top message')
+
+    def update_row_context(self, bound_field):
+        return dict(
+            widget_name=bound_field.field.widget.__class__.__name__
+        )

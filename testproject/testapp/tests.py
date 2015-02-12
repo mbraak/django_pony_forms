@@ -42,7 +42,7 @@ class PonyFormTest(unittest.TestCase):
         # Name row
         name_row = d('div#row-name')
         label = name_row.find('label')
-        self.assertEqual(label.text(), 'Name')
+        self.assertEqual(label.text(), 'Name TextInput')
         self.assertTrue(name_row.hasClass('required'))
 
         name_field = d('#id_name')
@@ -126,7 +126,7 @@ class PonyFormTest(unittest.TestCase):
         self.assertTrue('name="name"' in rendered_name_input)
 
         self.assertEqual(name_row.css_classes, 'required')
-        self.assertEqual(name_row.help_text, 'help text')
+        self.assertEqual(get_text(name_row.help_text), 'help text')
         self.assertEqual(get_text(name_row.errors), ['This field is required.'])
 
     def test_empty_label(self):
