@@ -1,11 +1,6 @@
 import six
 
-try:
-    # Django 1.5
-    from django.utils.encoding import force_text
-except ImportError:
-    # Django < 1.5
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_text
 
 from django.utils.safestring import mark_safe
 
