@@ -99,3 +99,10 @@ INSTALLED_APPS = [
     'django_pony_forms',
     'testapp',
 ]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True
+    }
+]
