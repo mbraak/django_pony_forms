@@ -14,6 +14,7 @@ from django.forms.forms import BoundField, NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
 from django.utils.encoding import python_2_unicode_compatible
 from django.template.loader import get_template
+from django.utils.functional import cached_property
 
 
 @python_2_unicode_compatible
@@ -30,7 +31,7 @@ class PonyFormMixin(object):
     def __str__(self):
         template = self._get_template_by_name(self.form_template)
 
-        return template.render(self._get_form_context())
+        return template.render(self._form_context)
 
     def _create_bound_field_dict(self):
         return OrderedDict(
@@ -38,10 +39,9 @@ class PonyFormMixin(object):
             for (field_name, field) in self.fields.items()
         )
 
-    def _get_form_context(self):
-        if not hasattr(self, '_form_context'):
-            self._form_context = FormContext(self)
-        return self._form_context
+    @cached_property
+    def _form_context(self):
+        return FormContext(self)
 
     def _get_row_template_name(self, field_name):
         return self.custom_row_templates.get(field_name, self.row_template)
@@ -52,19 +52,19 @@ class PonyFormMixin(object):
 
     @property
     def rows(self):
-        return self._get_form_context()['rows']
+        return self._form_context['rows']
 
     @property
     def hidden_fields(self):
-        return self._get_form_context()['hidden_fields']
+        return self._form_context['hidden_fields']
 
     @property
     def top_errors(self):
-        return self._get_form_context()['top_errors']
+        return self._form_context['top_errors']
 
     @property
     def fieldsets(self):
-        return self._get_form_context()['fieldsets']
+        return self._form_context['fieldsets']
 
 
 class FormContext(Context):
