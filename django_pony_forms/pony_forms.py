@@ -1,18 +1,14 @@
+from collections import OrderedDict
+from django.template.loader import get_template
+
 import six
 
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
-from django.template.loader import render_to_string
 from django.template.context import Context
 from django.forms.forms import BoundField, NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
 from django.utils.encoding import python_2_unicode_compatible
-
-try:
-    # Python >= 2.7
-    from collections import OrderedDict
-except ImportError:
-    from django.utils.datastructures import SortedDict as OrderedDict
 
 
 @python_2_unicode_compatible
@@ -27,10 +23,10 @@ class PonyFormMixin(object):
     required_css_class = 'required'
 
     def __str__(self):
-        return render_to_string(
-            self.form_template,
-            context_instance=self._get_form_context()
-        )
+        # todo: cache template
+        template = get_template(self.form_template)
+
+        return template.render(self._get_form_context())
 
     def _create_bound_field_dict(self):
         return OrderedDict(
@@ -133,9 +129,12 @@ class RowContext(object):
 
     def __str__(self):
         template_name = self._form._get_row_template_name(self._bound_field.name)
+        template = get_template(template_name)
 
         return mark_safe(
-            render_to_string(template_name, self._get_context())
+            template.render(
+                Context(self._get_context())
+            )
         )
 
     def _get_context(self):
@@ -181,9 +180,10 @@ class RowContext(object):
         if not id_:
             return ''
         else:
-            return render_to_string(
-                self._form.label_template,
-                dict(id=id_, label=contents, field=bound_field.field)
+            template = get_template(self._form.label_template)
+
+            return template.render(
+                Context(dict(id=id_, label=contents, field=bound_field.field))
             )
 
     def _get_field_string(self):
@@ -260,9 +260,10 @@ class ErrorList(list):
         self.errorlist_template = errorlist_template
 
     def __str__(self):
-        return render_to_string(
-            self.errorlist_template,
-            dict(errors=self)
+        template = get_template(self.errorlist_template)
+
+        return template.render(
+            Context(dict(errors=self))
         )
 
 
