@@ -7,6 +7,7 @@ except ImportError:
 
 import six
 
+import django
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.template.context import Context
@@ -31,17 +32,11 @@ class PonyFormMixin(object):
     def __str__(self):
         template = self._get_template_by_name(self.form_template)
 
-        return template.render(self._form_context)
-
-    def _create_bound_field_dict(self):
-        return OrderedDict(
-            (field_name, BoundField(self, field, field_name))
-            for (field_name, field) in self.fields.items()
-        )
+        return render_template(template, self._form_context_dict)
 
     @cached_property
-    def _form_context(self):
-        return FormContext(self)
+    def _form_context_dict(self):
+        return FormContext(self).create_dict()
 
     def _get_row_template_name(self, field_name):
         return self.custom_row_templates.get(field_name, self.row_template)
@@ -52,69 +47,83 @@ class PonyFormMixin(object):
 
     @property
     def rows(self):
-        return self._form_context['rows']
+        return self._form_context_dict['rows']
 
     @property
     def hidden_fields(self):
-        return self._form_context['hidden_fields']
+        return self._form_context_dict['hidden_fields']
 
     @property
     def top_errors(self):
-        return self._form_context['top_errors']
+        return self._form_context_dict['top_errors']
 
     @property
     def fieldsets(self):
-        return self._form_context['fieldsets']
+        return self._form_context_dict['fieldsets']
 
 
-class FormContext(Context):
-    def __init__(self, form, *args, **kwargs):
-        super(FormContext, self).__init__(*args, **kwargs)
+class FormContext(object):
+    def __init__(self, form):
+        self.form = form
 
-        self._form = form
+    def create_dict(self):
+        return dict(
+            hidden_fields=self.hidden_field_dict,
+            fields=self.visible_fields_dict,
+            rows=self.rows,
+            top_errors=self.top_errors,
+            fieldsets=self.fieldsets
+        )
 
-        bound_fields = form._create_bound_field_dict()
+    @cached_property
+    def bound_field_dict(self):
+        return OrderedDict(
+            (field_name, BoundField(self.form, field, field_name))
+            for (field_name, field) in self.form.fields.items()
+        )
 
-        self['hidden_fields'] = self.get_hidden_field_dict(bound_fields)
-        self['fields'] = self.get_visible_fields_dict(bound_fields)
-        self['rows'] = self.get_rows(self['fields'])
-        self['top_errors'] = self.get_top_errors(self['hidden_fields'])
-        self['fieldsets'] = FieldsetsContext(form, self['rows'])
-
-    def get_hidden_field_dict(self, bound_fields):
+    @cached_property
+    def hidden_field_dict(self):
         return RenderableDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in six.iteritems(bound_fields) if bound_field.is_hidden
+            for (field_name, bound_field) in six.iteritems(self.bound_field_dict) if bound_field.is_hidden
         )
 
-    def get_visible_fields_dict(self, bound_fields):
+    @cached_property
+    def visible_fields_dict(self):
         return OrderedDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in six.iteritems(bound_fields) if not bound_field.is_hidden
+            for (field_name, bound_field) in six.iteritems(self.bound_field_dict) if not bound_field.is_hidden
         )
 
-    def get_rows(self, visible_fields):
+    @cached_property
+    def rows(self):
         return RenderableDict(
             (
                 field_name,
-                RowContext(bound_field, self._form)
+                RowContext(bound_field, self.form)
             )
-            for (field_name, bound_field) in six.iteritems(visible_fields)
+            for (field_name, bound_field) in six.iteritems(self.visible_fields_dict)
         )
 
-    def get_top_errors(self, hidden_fields):
+    @cached_property
+    def top_errors(self):
         top_errors = ErrorList(
-            self._form.errors.get(NON_FIELD_ERRORS, []),
-            self._form
+            self.form.errors.get(NON_FIELD_ERRORS, []),
+            self.form
         )
 
-        for bound_field in six.itervalues(hidden_fields):
+        for bound_field in six.itervalues(self.hidden_field_dict):
             if bound_field.errors:
                 top_errors.extend([
                     u'(Hidden field %s) %s' % (bound_field.name, force_text(e)) for e in bound_field.errors
                 ])
 
         return top_errors
+
+    @cached_property
+    def fieldsets(self):
+        return FieldsetsContext(self.form, self.rows)
 
 
 @python_2_unicode_compatible
@@ -140,17 +149,11 @@ class RowContext(object):
         template = self._form._get_template_by_name(template_name)
 
         return mark_safe(
-            template.render(
-                Context(self._get_context())
-            )
+            render_template(template, self._context)
         )
 
-    def _get_context(self):
-        if not hasattr(self, '_context'):
-            self._context = self._create_context()
-        return self._context
-
-    def _create_context(self):
+    @cached_property
+    def _context(self):
         label = self._get_label()
         label_tag = self._get_label_tag(label)
 
@@ -190,8 +193,9 @@ class RowContext(object):
         else:
             template = self._form._get_template_by_name(self._form.label_template)
 
-            return template.render(
-                Context(dict(id=id_, label=contents, field=bound_field.field))
+            return render_template(
+                template,
+                dict(id=id_, label=contents, field=bound_field.field)
             )
 
     def _get_field_string(self):
@@ -241,23 +245,23 @@ class RowContext(object):
 
     @property
     def label(self):
-        return self._get_context()['label']
+        return self._context['label']
 
     @property
     def field(self):
-        return self._get_context()['field']
+        return self._context['field']
 
     @property
     def css_classes(self):
-        return self._get_context()['css_classes']
+        return self._context['css_classes']
 
     @property
     def help_text(self):
-        return self._get_context()['help_text']
+        return self._context['help_text']
 
     @property
     def errors(self):
-        return self._get_context()['errors']
+        return self._context['errors']
 
 
 @python_2_unicode_compatible
@@ -270,9 +274,7 @@ class ErrorList(list):
     def __str__(self):
         template = self._form._get_template_by_name(self._form.errorlist_template)
 
-        return template.render(
-            Context(dict(errors=self))
-        )
+        return render_template(template, dict(errors=self))
 
 
 class FieldsetsContext(object):
@@ -293,3 +295,12 @@ class FieldsetsContext(object):
             return RenderableDict(
                 (row.name, row) for row in rows
             )
+
+
+def render_template(template, context_dict):
+    if django.VERSION < (1, 8):
+        return template.render(
+            Context(context_dict)
+        )
+    else:
+        return template.render(context_dict)
