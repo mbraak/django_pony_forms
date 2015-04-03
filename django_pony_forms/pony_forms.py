@@ -1,5 +1,9 @@
 from collections import OrderedDict
-from django.template.loader import get_template
+
+try:
+    from functools import lru_cache
+except ImportError:
+    from backports.functools_lru_cache import lru_cache
 
 import six
 
@@ -9,6 +13,7 @@ from django.template.context import Context
 from django.forms.forms import BoundField, NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
 from django.utils.encoding import python_2_unicode_compatible
+from django.template.loader import get_template
 
 
 @python_2_unicode_compatible
@@ -23,8 +28,7 @@ class PonyFormMixin(object):
     required_css_class = 'required'
 
     def __str__(self):
-        # todo: cache template
-        template = get_template(self.form_template)
+        template = self._get_template_by_name(self.form_template)
 
         return template.render(self._get_form_context())
 
@@ -41,6 +45,10 @@ class PonyFormMixin(object):
 
     def _get_row_template_name(self, field_name):
         return self.custom_row_templates.get(field_name, self.row_template)
+
+    @lru_cache()
+    def _get_template_by_name(self, template_name):
+        return get_template(template_name)
 
     @property
     def rows(self):
@@ -97,7 +105,7 @@ class FormContext(Context):
     def get_top_errors(self, hidden_fields):
         top_errors = ErrorList(
             self._form.errors.get(NON_FIELD_ERRORS, []),
-            self._form.errorlist_template
+            self._form
         )
 
         for bound_field in six.itervalues(hidden_fields):
@@ -129,7 +137,7 @@ class RowContext(object):
 
     def __str__(self):
         template_name = self._form._get_row_template_name(self._bound_field.name)
-        template = get_template(template_name)
+        template = self._form._get_template_by_name(template_name)
 
         return mark_safe(
             template.render(
@@ -180,7 +188,7 @@ class RowContext(object):
         if not id_:
             return ''
         else:
-            template = get_template(self._form.label_template)
+            template = self._form._get_template_by_name(self._form.label_template)
 
             return template.render(
                 Context(dict(id=id_, label=contents, field=bound_field.field))
@@ -225,7 +233,7 @@ class RowContext(object):
         return not getattr(widget, 'renders_label', False)
 
     def _get_errorlist(self):
-        return ErrorList(self._bound_field.errors, self._form.errorlist_template)
+        return ErrorList(self._bound_field.errors, self._form)
 
     @property
     def name(self):
@@ -254,13 +262,13 @@ class RowContext(object):
 
 @python_2_unicode_compatible
 class ErrorList(list):
-    def __init__(self, errors, errorlist_template):
+    def __init__(self, errors, form):
         super(ErrorList, self).__init__(errors)
 
-        self.errorlist_template = errorlist_template
+        self._form = form
 
     def __str__(self):
-        template = get_template(self.errorlist_template)
+        template = self._form._get_template_by_name(self._form.errorlist_template)
 
         return template.render(
             Context(dict(errors=self))
