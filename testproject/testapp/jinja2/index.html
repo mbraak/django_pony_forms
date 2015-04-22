@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Simple form</title>
+    <link href="/static/foundation/css/foundation.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row">
+        <div class="columns">
+            <h2>Edit document</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="columns">
+            <form method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                {{ form }}
+
+                <input class="button" type="submit" value="Save" />
+                <a class="button secondary" href="#">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
