@@ -32,7 +32,9 @@ class PonyFormMixin(object):
     def __str__(self):
         template = self._get_template_by_name(self.form_template)
 
-        return render_template(template, self._form_context_dict)
+        return mark_safe(
+            render_template(template, self._form_context_dict)
+        )
 
     @cached_property
     def _form_context_dict(self):
@@ -160,14 +162,14 @@ class RowContext(object):
         context = dict(
             label=label_tag,
             label_title=label,
-            field=self._get_field_string,
+            field=self.field_string,
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
             help_text=force_text(self._bound_field.field.help_text or u''),
-            errors=self._get_errorlist,
+            errors=self.errorlist,
             form=self._form,
             bound_field=self._bound_field,
-            must_render_label=self._must_render_label,
+            must_render_label=self.must_render_label,
         )
 
         if hasattr(self._form, 'update_row_context'):
@@ -198,8 +200,9 @@ class RowContext(object):
                 dict(id=id_, label=contents, field=bound_field.field)
             )
 
-    def _get_field_string(self):
-        if self._must_render_label():
+    @cached_property
+    def field_string(self):
+        if self.must_render_label:
             # Default: render boundfield which renders the label and the widget
             result = six.text_type(self._bound_field)
         else:
@@ -226,7 +229,8 @@ class RowContext(object):
         # Render widget widh 'label' attribute
         return widget.render(name, bound_field.value(), attrs=attrs, label=self._get_label())
 
-    def _must_render_label(self):
+    @cached_property
+    def must_render_label(self):
         """
         Must we render the label?
 
@@ -236,7 +240,8 @@ class RowContext(object):
 
         return not getattr(widget, 'renders_label', False)
 
-    def _get_errorlist(self):
+    @cached_property
+    def errorlist(self):
         return ErrorList(self._bound_field.errors, self._form)
 
     @property
