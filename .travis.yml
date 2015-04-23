@@ -17,7 +17,3 @@ script:
   - coverage report
 after_success:
   - coveralls
-matrix:
-  exclude:
-    - python: pypy
-      env: DJANGO=Django==1.8
