@@ -45,7 +45,12 @@ class PonyFormMixin(object):
 
     @lru_cache()
     def _get_template_by_name(self, template_name):
-        return get_template(template_name)
+        if django.VERSION < (1, 8):
+            return get_template(template_name)
+        else:
+            template_engine = getattr(self, 'template_engine', None)
+
+            return get_template(template_name, using=template_engine)
 
     @property
     def rows(self):
