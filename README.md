@@ -1,8 +1,8 @@
-[![Travis Status](https://secure.travis-ci.org/mbraak/django_pony_forms.svg)](http://travis-ci.org/mbraak/django_pony_forms) [![Version](https://pypip.in/version/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Development Status](https://pypip.in/status/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)
+[![Build Status](https://travis-ci.org/mbraak/django_pony_forms.svg?branch=master)](https://travis-ci.org/mbraak/django_pony_forms) [![Version](https://badge.fury.io/py/django_pony_forms.svg)](https://pypi.python.org/pypi/django_pony_forms/)
 
-[![Coverage Status](https://img.shields.io/coveralls/mbraak/django_pony_forms.svg)](https://coveralls.io/r/mbraak/django_pony_forms) [![Downloads](https://pypip.in/download/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Format](https://pypip.in/format/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.png?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/mbraak/django_pony_forms.svg)](https://coveralls.io/r/mbraak/django_pony_forms?branch=master) [![Downloads](https://img.shields.io/pypi/dm/django_pony_forms.svg)](https://pypi.python.org/pypi/django_pony_forms/)  [![Requirements Status](https://img.shields.io/requires/github/celery/celery.svg)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
 
-[![License](https://pypip.in/license/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)  [![Supported Python versions](https://pypip.in/py_versions/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/) [![Supported Python implementations](https://pypip.in/implementation/django_pony_forms/badge.svg)](https://pypi.python.org/pypi/django_pony_forms/)
+[![License](https://img.shields.io/pypi/l/django_pony_forms.svg)](https://pypi.python.org/pypi/django_pony_forms/)
 
 Django pony forms
 =================
