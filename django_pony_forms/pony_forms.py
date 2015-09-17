@@ -1,8 +1,10 @@
 from collections import OrderedDict
 
 try:
+    # python 3
     from functools import lru_cache
 except ImportError:
+    # python 2
     from backports.functools_lru_cache import lru_cache
 
 import six
@@ -11,11 +13,18 @@ import django
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.template.context import Context
-from django.forms.forms import BoundField, NON_FIELD_ERRORS
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
 from django.utils.encoding import python_2_unicode_compatible
 from django.template.loader import get_template
 from django.utils.functional import cached_property
+
+try:
+    # django 1.9+
+    from django.forms.boundfield import BoundField
+except:
+    # django 1.7 and 1.8
+    from django.forms.forms import BoundField
 
 
 @python_2_unicode_compatible
