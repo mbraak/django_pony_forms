@@ -11,7 +11,6 @@ sys.path.append(
 )
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
     'default': {
@@ -101,12 +100,13 @@ INSTALLED_APPS = [
 ]
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True
-    },
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'APP_DIRS': True
-    }
+    dict(
+        BACKEND='django.template.backends.django.DjangoTemplates',
+        APP_DIRS=True,
+        OPTIONS=dict(debug=DEBUG)
+    ),
+    dict(
+        BACKEND='django.template.backends.jinja2.Jinja2',
+        APP_DIRS=True
+    )
 ]
