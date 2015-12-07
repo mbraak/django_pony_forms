@@ -12,7 +12,6 @@ import six
 import django
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
-from django.template.context import Context
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.utils.translation import ugettext_lazy
 from django.utils.encoding import python_2_unicode_compatible
@@ -23,7 +22,7 @@ try:
     # django 1.9+
     from django.forms.boundfield import BoundField
 except:
-    # django 1.7 and 1.8
+    # django 1.8
     from django.forms.forms import BoundField
 
 
@@ -42,7 +41,7 @@ class PonyFormMixin(object):
         template = self._get_template_by_name(self.form_template)
 
         return mark_safe(
-            render_template(template, self._form_context_dict)
+            template.render(self._form_context_dict)
         )
 
     @cached_property
@@ -165,7 +164,7 @@ class RowContext(object):
         template = self._form._get_template_by_name(template_name)
 
         return mark_safe(
-            render_template(template, self._context)
+            template.render(self._context)
         )
 
     @cached_property
@@ -209,8 +208,7 @@ class RowContext(object):
         else:
             template = self._form._get_template_by_name(self._form.label_template)
 
-            return render_template(
-                template,
+            return template.render(
                 dict(id=id_, label=contents, field=bound_field.field)
             )
 
@@ -293,7 +291,7 @@ class ErrorList(list):
     def __str__(self):
         template = self._form._get_template_by_name(self._form.errorlist_template)
 
-        return render_template(template, dict(errors=self))
+        return template.render(dict(errors=self))
 
 
 class FieldsetsContext(object):
@@ -314,12 +312,3 @@ class FieldsetsContext(object):
             return RenderableDict(
                 (row.name, row) for row in rows
             )
-
-
-def render_template(template, context_dict):
-    if django.VERSION < (1, 8):
-        return template.render(
-            Context(context_dict)
-        )
-    else:
-        return template.render(context_dict)
