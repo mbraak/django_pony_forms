@@ -1,8 +1,8 @@
-backports.functools-lru-cache==1.1
+backports.functools-lru-cache==1.2.1
 Jinja2==2.8
 six==1.10.0
 
 # pyquery
-pyquery==1.2.9
+pyquery==1.2.11
 cssselect==0.9.1
 lxml==3.5.0
