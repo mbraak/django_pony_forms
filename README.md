@@ -9,7 +9,7 @@ Django pony forms
 
 *Django-pony-forms* helps you to write better html for your Django forms.
 
-Read the documentation on [readthedocs](http://django_pony_forms.readthedocs.org/en/latest/index.html)
+Read the documentation on [readthedocs](http://django_pony_forms.readthedocs.io/en/latest/index.html)
 
 **1: Better form html by default**
 
