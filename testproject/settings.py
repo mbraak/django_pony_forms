@@ -64,13 +64,16 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    os.path.abspath(
+        os.path.join(base_dir, 'bower_components')
+    )
+]
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 # Make this unique, and don't share it with anybody.

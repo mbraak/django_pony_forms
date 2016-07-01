@@ -60,7 +60,7 @@ class PonyFormTest(unittest.TestCase):
         html = u"<div>%s</div>" % six.text_type(form)
         d = pq(html)
 
-        errorlist = d('small.error')
+        errorlist = d('div.alert')
         self.assertEqual(
             format_list(
                 [pq(error).text() for error in errorlist],
