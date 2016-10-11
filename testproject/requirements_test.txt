@@ -3,6 +3,6 @@ Jinja2==2.8
 six==1.10.0
 
 # pyquery
-pyquery==1.2.14
+pyquery==1.2.15
 cssselect==0.9.2
 lxml==3.6.4
