@@ -1,6 +1,8 @@
 import os
 import sys
 
+import django
+
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -87,6 +89,9 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
+
+if django.VERSION[0:2] <= (1, 9):
+    MIDDLEWARE_CLASSES = MIDDLEWARE
 
 ROOT_URLCONF = 'urls'
 
