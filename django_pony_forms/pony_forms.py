@@ -131,7 +131,7 @@ class FormContext(object):
         for bound_field in six.itervalues(self.hidden_field_dict):
             if bound_field.errors:
                 top_errors.extend([
-                    u'(Hidden field %s) %s' % (bound_field.name, force_text(e)) for e in bound_field.errors
+                    u'(Hidden field {0!s}) {1!s}'.format(bound_field.name, force_text(e)) for e in bound_field.errors
                 ])
 
         return top_errors

@@ -12,7 +12,7 @@ class ExampleTextarea(forms.Textarea):
 
     def render(self, name, value, attrs, label):
         return (
-            mark_safe('<label>%s</label>' % six.text_type(label)) +
+            mark_safe('<label>{0!s}</label>'.format(six.text_type(label))) +
             super(ExampleTextarea, self).render(name, value, attrs)
         )
 
