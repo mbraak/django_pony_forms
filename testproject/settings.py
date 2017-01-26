@@ -79,7 +79,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'secret'
+SECRET_KEY = 'test_secret'
 
 MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
