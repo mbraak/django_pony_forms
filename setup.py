@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = '0.4.0'
+version = '0.4.1'
 
 setup(
     name='django_pony_forms',
@@ -28,6 +28,7 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy"
     ]
