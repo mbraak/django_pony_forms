@@ -75,5 +75,3 @@ INSTALLED_APPS = (
     'django_pony_forms',
 )
 ```
-
-[![Code Issues](https://www.quantifiedcode.com/api/v1/project/1462092b660f4ff4a9e734d6b41e8fbf/badge.svg)](https://www.quantifiedcode.com/app/project/1462092b660f4ff4a9e734d6b41e8fbf)
