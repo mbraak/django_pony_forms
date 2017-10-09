@@ -81,13 +81,13 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'test_secret'
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-)
+]
 
 if django.VERSION[0:2] < (2, 0):
     MIDDLEWARE.append('django.contrib.auth.middleware.SessionAuthenticationMiddleware')
