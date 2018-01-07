@@ -20,4 +20,4 @@ Add ``django_pony_forms`` to your installed apps in ``settings.py``.
 Requirements
 ============
 
-The package is tested with Django 1.8 - 2.0 and Python 2.7, 3.4-3.6.
+The package is tested with Django 1.11 - 2.0 and Python 2.7, 3.5-3.6.
