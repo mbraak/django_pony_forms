@@ -5,4 +5,4 @@ six==1.11.0
 # pyquery
 pyquery==1.4.0
 cssselect==1.0.3
-lxml==4.2.2
+lxml==4.2.3
