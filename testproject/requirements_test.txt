@@ -1,6 +1,4 @@
-backports.functools-lru-cache==1.6.1
 Jinja2==2.10.3
-six==1.13.0
 
 # pyquery
 pyquery==1.4.1

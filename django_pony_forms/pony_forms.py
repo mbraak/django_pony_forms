@@ -1,27 +1,15 @@
 from collections import OrderedDict
-
-try:
-    # python 3
-    from functools import lru_cache
-except ImportError:
-    # python 2
-    from backports.functools_lru_cache import lru_cache
-
-import six
-
-import django
-from django.utils.encoding import force_text
+from functools import lru_cache
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 from django.core.exceptions import NON_FIELD_ERRORS
-from django.utils.translation import ugettext_lazy
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import gettext_lazy
 from django.template.loader import get_template
 from django.utils.functional import cached_property
 from django.forms.boundfield import BoundField
 
 
-@python_2_unicode_compatible
-class PonyFormMixin(object):
+class PonyFormMixin:
     form_template = 'django_pony_forms/base_form.html'
     row_template = 'django_pony_forms/row.html'
     errorlist_template = 'django_pony_forms/errorlist.html'
@@ -47,12 +35,9 @@ class PonyFormMixin(object):
 
     @lru_cache()
     def _get_template_by_name(self, template_name):
-        if django.VERSION < (1, 8):
-            return get_template(template_name)
-        else:
-            template_engine = getattr(self, 'template_engine', None)
+        template_engine = getattr(self, 'template_engine', None)
 
-            return get_template(template_name, using=template_engine)
+        return get_template(template_name, using=template_engine)
 
     @property
     def rows(self):
@@ -95,14 +80,14 @@ class FormContext(object):
     def hidden_field_dict(self):
         return RenderableDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in six.iteritems(self.bound_field_dict) if bound_field.is_hidden
+            for (field_name, bound_field) in self.bound_field_dict.items() if bound_field.is_hidden
         )
 
     @cached_property
     def visible_fields_dict(self):
         return OrderedDict(
             (field_name, bound_field)
-            for (field_name, bound_field) in six.iteritems(self.bound_field_dict) if not bound_field.is_hidden
+            for (field_name, bound_field) in self.bound_field_dict.items() if not bound_field.is_hidden
         )
 
     @cached_property
@@ -112,7 +97,7 @@ class FormContext(object):
                 field_name,
                 RowContext(bound_field, self.form)
             )
-            for (field_name, bound_field) in six.iteritems(self.visible_fields_dict)
+            for (field_name, bound_field) in self.visible_fields_dict.items()
         )
 
     @cached_property
@@ -122,10 +107,10 @@ class FormContext(object):
             self.form
         )
 
-        for bound_field in six.itervalues(self.hidden_field_dict):
+        for bound_field in self.hidden_field_dict.values():
             if bound_field.errors:
                 top_errors.extend([
-                    u'(Hidden field {0!s}) {1!s}'.format(bound_field.name, force_text(e)) for e in bound_field.errors
+                    u'(Hidden field {0!s}) {1!s}'.format(bound_field.name, force_str(e)) for e in bound_field.errors
                 ])
 
         return top_errors
@@ -135,17 +120,15 @@ class FormContext(object):
         return FieldsetsContext(self.form, self.rows)
 
 
-@python_2_unicode_compatible
 class RenderableDict(OrderedDict):
     def __str__(self):
         return mark_safe(
             u''.join(
-                six.text_type(item) for item in six.itervalues(self)
+                str(item) for item in self.values()
             )
         )
 
 
-@python_2_unicode_compatible
 class RowContext(object):
     def __init__(self, bound_field, form):
         super(RowContext, self).__init__()
@@ -174,7 +157,7 @@ class RowContext(object):
             id_for_label=self._bound_field.id_for_label,
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
-            help_text=force_text(self._bound_field.field.help_text or u''),
+            help_text=force_str(self._bound_field.field.help_text or u''),
             errors=self.errorlist,
             form=self._form,
             bound_field=self._bound_field,
@@ -190,7 +173,7 @@ class RowContext(object):
 
     def _get_label(self):
         if self._bound_field.label:
-            return ugettext_lazy(force_text(self._bound_field.label))
+            return gettext_lazy(force_str(self._bound_field.label))
         else:
             return ''
 
@@ -212,7 +195,7 @@ class RowContext(object):
     def field_string(self):
         if self.must_render_label:
             # Default: render boundfield which renders the label and the widget
-            result = six.text_type(self._bound_field)
+            result = str(self._bound_field)
         else:
             # The widget renders its own label
             result = self._render_widget_with_own_label()
@@ -277,7 +260,6 @@ class RowContext(object):
         return self._context['errors']
 
 
-@python_2_unicode_compatible
 class ErrorList(list):
     def __init__(self, errors, form):
         super(ErrorList, self).__init__(errors)
@@ -290,7 +272,7 @@ class ErrorList(list):
         return template.render(dict(errors=self))
 
 
-class FieldsetsContext(object):
+class FieldsetsContext:
     def __init__(self, form, rows):
         self._form = form
         self._rows = rows
