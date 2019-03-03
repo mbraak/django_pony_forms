@@ -1,7 +1,7 @@
-<div class="row form-row{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ name }}">
+<div class="row form-row{% if css_classes %} {{ css_classes }}{% endif %}" id="row-{{ html_name }}">
     <div class="columns">
         {% if must_render_label  %}
-            <label{% if errors %} class="is-invalid-label"{% endif %}>
+            <label for="{{ id_for_label }}"{% if errors %} class="is-invalid-label"{% endif %}>
                 {{ label_title }}
                 <span class="label widget-name">{{ widget_name }}</span>
                 {{ field }}

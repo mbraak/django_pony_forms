@@ -23,8 +23,8 @@ class PonyFormTest(unittest.TestCase):
         # Check hidden field
         hidden = d('input[type=hidden]')
         self.assertEqual(len(hidden), 1)
-        self.assertEqual(hidden.attr('id'), 'id_code')
-        self.assertEqual(hidden.attr('name'), 'code')
+        self.assertEqual(hidden.attr('id'), 'id_example-code')
+        self.assertEqual(hidden.attr('name'), 'example-code')
 
         # There is no errorlist
         errorlist = d('ul.errorlist')
@@ -37,18 +37,18 @@ class PonyFormTest(unittest.TestCase):
                 [pq(row).attr('id') for row in rows],
                 sort=False
             ),
-            'row-name row-description row-example_type'
+            'row-example-name row-example-description row-example-example_type'
         )
 
         # Name row
-        name_row = d('div#row-name')
+        name_row = d('div#row-example-name')
         label = name_row.find('label')
         self.assertEqual(label.text(), 'Name TextInput')
         self.assertTrue(name_row.hasClass('required'))
 
-        name_field = d('#id_name')
+        name_field = d('#id_example-name')
         self.assertEqual(name_field.attr('type'), 'text')
-        self.assertEqual(name_field.attr('name'), 'name')
+        self.assertEqual(name_field.attr('name'), 'example-name')
         self.assertEqual(name_field.attr('maxlength'), '50')
 
         help_text = name_row.find('p')
@@ -107,7 +107,7 @@ class PonyFormTest(unittest.TestCase):
                 ],
                 sort=False
             ),
-            'row-name row-description row-example_type'
+            'row-example-name row-example-description row-example-example_type'
         )
 
         # 6. Post form and get top errors
@@ -120,11 +120,11 @@ class PonyFormTest(unittest.TestCase):
         # 7. Get row properties
         name_row = form.rows['name']
         self.assertEqual(name_row.name, 'name')
-        self.assertEqual(name_row.label, '<label for="id_name">Name</label>')
+        self.assertEqual(name_row.label, '<label for="id_example-name">Name</label>')
 
         rendered_name_input = get_text(name_row.field)
         self.assertTrue(rendered_name_input.startswith('<input '))
-        self.assertTrue('name="name"' in rendered_name_input)
+        self.assertTrue('name="example-name"' in rendered_name_input)
 
         self.assertEqual(name_row.css_classes, 'required')
         self.assertEqual(get_text(name_row.help_text), 'help text')
@@ -157,5 +157,5 @@ class PonyFormTest(unittest.TestCase):
         response = client.get('/')
         d = pq(response.content)
 
-        name_field = d('#id_name')
-        self.assertEqual(name_field.attr('name'), 'name')
+        name_field = d('#id_example-name')
+        self.assertEqual(name_field.attr('name'), 'example-name')

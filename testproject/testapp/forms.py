@@ -18,6 +18,8 @@ class ExampleTextarea(forms.Textarea):
 
 
 class ExampleForm(PonyFormMixin, forms.Form):
+    prefix = 'example'
+
     name = forms.CharField(max_length=50, required=True, help_text='help text')
     description = forms.CharField(max_length=255, help_text='please fill in a description', widget=ExampleTextarea, required=False)
     code = forms.CharField(max_length=15, required=True, widget=forms.HiddenInput)

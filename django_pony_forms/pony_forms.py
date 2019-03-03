@@ -170,6 +170,8 @@ class RowContext(object):
             label=label_tag,
             label_title=label,
             field=self.field_string,
+            html_name=self._bound_field.html_name,
+            id_for_label=self._bound_field.id_for_label,
             name=self._bound_field.name,
             css_classes=self._bound_field.css_classes(),
             help_text=force_text(self._bound_field.field.help_text or u''),
