@@ -7,12 +7,13 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-version = '0.7.0'
+version = '0.7.1'
 
 setup(
     name='django_pony_forms',
     version=version,
     license='Apache License, Version 2.0',
+    description='Django-pony-forms helps you to write better html for your Django forms',
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(exclude=['testproject', 'testproject.*']),
