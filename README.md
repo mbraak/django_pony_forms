@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mbraak/django_pony_forms.svg?branch=master)](https://travis-ci.org/mbraak/django_pony_forms) [![Version](https://badge.fury.io/py/django_pony_forms.svg)](https://pypi.python.org/pypi/django_pony_forms/)
+[![Build Status](https://travis-ci.org/mbraak/django_pony_forms.svg?branch=master)](https://travis-ci.org/mbraak/django_pony_forms) [![Version](https://badge.fury.io/py/django-pony-forms.svg)](https://pypi.python.org/pypi/django-pony-forms/)
 
 [![Coverage Status](https://img.shields.io/coveralls/mbraak/django_pony_forms.svg)](https://coveralls.io/r/mbraak/django_pony_forms?branch=master)
 [![Requirements Status](https://requires.io/github/mbraak/django_pony_forms/requirements.svg?branch=master)](https://requires.io/github/mbraak/django_pony_forms/requirements/?branch=master)
