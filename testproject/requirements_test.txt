@@ -1,4 +1,4 @@
-backports.functools-lru-cache==1.6.0
+backports.functools-lru-cache==1.6.1
 Jinja2==2.10.3
 six==1.12.0
 
