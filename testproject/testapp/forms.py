@@ -1,5 +1,3 @@
-import six
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
@@ -12,7 +10,7 @@ class ExampleTextarea(forms.Textarea):
 
     def render(self, name, value, attrs, label):
         return (
-            mark_safe('<label>{0!s}</label>'.format(six.text_type(label))) +
+            mark_safe('<label>{0!s}</label>'.format(str(label))) +
             super(ExampleTextarea, self).render(name, value, attrs)
         )
 

@@ -2,10 +2,6 @@ language: python
 sudo: false
 matrix:
   include:
-    - python: 2.7
-      env: DJANGO="Django==1.11.26"
-    - python: 3.6
-      env: DJANGO="Django==1.11.26"
     - python: 3.7
       env: DJANGO="Django==2.0.13"
       dist: xenial
@@ -18,13 +14,17 @@ matrix:
       env: DJANGO="Django==2.2.7"
       dist: xenial
       sudo: true
+    - python: 3.7
+      env: DJANGO="Django==3.0"
+      dist: xenial
+      sudo: true
 install:
   - pip install $DJANGO
   - pip install -r testproject/requirements_test.txt
   - pip install -r testproject/requirements_travis.txt
   - pip install -e .
 script:
-  - python testproject/manage.py test testapp
+  - python -Wd testproject/manage.py test testapp
   - coverage run --source=django_pony_forms,testproject/testapp testproject/manage.py test testapp
   - coverage report
 after_success:
