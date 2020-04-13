@@ -1,4 +1,4 @@
-Jinja2==2.11.1
+Jinja2==2.11.2
 
 # pyquery
 pyquery==1.4.1
