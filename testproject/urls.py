@@ -1,6 +1,7 @@
-from django.conf.urls import include, url
+from django.urls import path
+from django.conf.urls import include
 
 
 urlpatterns = (
-    url(r'', include('testapp.urls')),
+    path(r'', include('testapp.urls')),
 )
