@@ -2,16 +2,12 @@ language: python
 dist: bionic
 matrix:
   include:
-    - python: 3.7
-      env: DJANGO="Django==2.0.13"
-    - python: 3.7
-      env: DJANGO="Django==2.1.15"
-    - python: 3.7
+    - python: 3.8
       env: DJANGO="Django==2.2.15"
-    - python: 3.7
-      env: DJANGO="Django==3.0.9"
     - python: 3.8
       env: DJANGO="Django==3.0.9"
+    - python: 3.8
+      env: DJANGO="Django==3.1"
 install:
   - pip install $DJANGO
   - pip install -r testproject/requirements_test.txt
